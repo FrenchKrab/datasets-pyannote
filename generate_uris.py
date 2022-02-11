@@ -6,6 +6,7 @@ CUSTOM_TRAIN_SUBSETS = {'train':0.8, 'dev':0.2}
 
 RESULT_DIR = "lists"
 
+SEED=42
 
 import glob
 from pathlib import Path
@@ -16,7 +17,8 @@ def is_test_file(filename: str):
     return filename.startswith('L') or filename.startswith('M') or filename.startswith('S')
 
 def get_subsets(uris: list, subsets: dict):
-    uris_left = uris.copy()
+    rand = random.Random(SEED)
+    uris_left = rand.sample(uris, len(uris))
     random.shuffle(uris_left)
     answer = {}
     for subsetname in subsets:
