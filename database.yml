@@ -1,19 +1,72 @@
 Databases:
-  AISHELL4: wav/{uri}.flac
+  AISHELL4: aishell4/wav/{uri}.flac
+  MSDWILD: msdwild/wav/{uri}.wav
 
 Protocols:
   AISHELL4:
     SpeakerDiarization:
-      only_words:
+      Custom:
         train:
-          uri: lists/train.txt
-          annotation: rttm/{uri}.rttm
-          annotated: uems/{uri}.uem
+          uri: aishell4/lists/custom_train.txt
+          annotation: aishell4/rttm/{uri}.rttm
+          annotated: aishell4/uems/{uri}.uem
         development:
-          uri: lists/dev.txt
-          annotation: rttm/{uri}.rttm
-          annotated: uems/{uri}.uem
+          uri: aishell4/lists/custom_dev.txt
+          annotation: aishell4/rttm/{uri}.rttm
+          annotated: aishell4/uems/{uri}.uem
         test:
-          uri: lists/test.txt
-          annotation: rttm/{uri}.rttm
-          annotated: uems/{uri}.uem
+          uri: aishell4/lists/test.txt
+          annotation: aishell4/rttm/{uri}.rttm
+          annotated: aishell4/uems/{uri}.uem
+      Original:
+        train:
+          uri: aishell4/lists/original_train.txt
+          annotation: aishell4/rttm/{uri}.rttm
+          annotated: aishell4/uems/{uri}.uem
+        test:
+          uri: aishell4/lists/test.txt
+          annotation: aishell4/rttm/{uri}.rttm
+          annotated: aishell4/uems/{uri}.uem
+  MSDWILD:
+    SpeakerDiarization:
+      Custom:
+        train:
+          uri: msdwild/lists/train.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        development:
+          uri: msdwild/lists/dev.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        test:
+          uri: msdwild/lists/test.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+      # uses the "many" subset as test
+      Custom_many_test:
+        train:
+          uri: msdwild/lists/train.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        development:
+          uri: msdwild/lists/dev.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        test:
+          uri: msdwild/lists/test_many.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+      # dubious use of the original subsets, consider using the "custom" version instead
+      Original:
+        train:
+          uri: msdwild/lists/few_train.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        development:
+          uri: msdwild/lists/few_val.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem
+        test:
+          uri: msdwild/lists/many_val.txt
+          annotation: msdwild/rttm/{uri}.rttm
+          annotated: msdwild/uems/{uri}.uem

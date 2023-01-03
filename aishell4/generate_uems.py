@@ -1,5 +1,5 @@
 UEM_OUT="uems/"
-URI_LIST_DIR = "lists/"
+ALL_URIS_FILE = "lists/all.txt"
 RTTM_FOLDER = 'rttm'
 
 import glob
@@ -37,13 +37,8 @@ def read_uris(urifile_path: str):
 
 
 def main():
-    list_path = Path(URI_LIST_DIR)
-
-    for filename in glob.glob(URI_LIST_DIR + "/*"):
-        subsetname = Path(filename).stem
-
-        subset_uris = read_uris(filename)
-        generate_uems_for_uris(subset_uris, Path(RTTM_FOLDER), UEM_OUT)
+    subset_uris = read_uris(ALL_URIS_FILE)
+    generate_uems_for_uris(subset_uris, Path(RTTM_FOLDER), UEM_OUT)
 
 
 if __name__ == "__main__":

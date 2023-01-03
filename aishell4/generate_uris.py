@@ -2,7 +2,7 @@
 FILES_SOURCE="wav/*.flac"
 
 # Subsets created from the training set, name:ratio_allocated
-CUSTOM_TRAIN_SUBSETS = {'train':0.8, 'dev':0.2} 
+CUSTOM_TRAIN_SUBSETS = {'custom_train':0.8, 'custom_dev':0.2} 
 
 RESULT_DIR = "lists"
 
@@ -53,7 +53,9 @@ def main():
     for subsetname, subseturis in custom_subsets.items():
         write_stringlist_to_file(Path(RESULT_DIR) / (subsetname+".txt"), subseturis, sort=True)
 
-    write_stringlist_to_file(Path(RESULT_DIR) / ("test.txt"), all_test_uris, sort=True)
+    write_stringlist_to_file(Path(RESULT_DIR) / "original_train.txt", all_train_uris, sort=True)
+    write_stringlist_to_file(Path(RESULT_DIR) / "test.txt", all_test_uris, sort=True)
+    write_stringlist_to_file(Path(RESULT_DIR) / "all.txt", all_uris, sort=True)
 
 if __name__ == '__main__':
     main()
