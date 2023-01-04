@@ -3,8 +3,10 @@ import random
 import os
 import sys
 
+
 sys.path.append("../")
 from scripts.io import write_stringlist_to_file
+from scripts.uri import compute_uri_subsets_files
 
 # Change this to configure !
 # Here, the CUSTOM_FILES_SUBSET_MAPPING will split the few.train
@@ -33,17 +35,6 @@ OUTDIR = "lists"
 SEED=42
 
 
-def get_subsets(uris: list, subsets: dict):
-    rand = random.Random(SEED)
-    uris_left = rand.sample(uris, len(uris))
-    random.shuffle(uris_left)
-    answer = {}
-    for subsetname in subsets:
-        ratio = subsets[subsetname]
-        element_count = round(len(uris) * ratio)
-        answer[subsetname] = uris_left[:element_count]
-        uris_left = uris_left[element_count:]
-    return answer
 
 def get_all_subset_uris_in_rttm(file_subset_mapping: dict) -> dict:
     uris = {}
@@ -54,7 +45,7 @@ def get_all_subset_uris_in_rttm(file_subset_mapping: dict) -> dict:
                 splitted = line.split(' ')
                 uri = splitted[1]
                 uris_in_file.add(uri)
-        subset_uris = get_subsets(list(uris_in_file), file_subset_mapping[file])
+        subset_uris = compute_uri_subsets_files(list(uris_in_file), file_subset_mapping[file])
         for subset in subset_uris:
             if subset not in uris:
                 uris[subset] = []

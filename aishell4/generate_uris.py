@@ -12,33 +12,23 @@ import glob
 from pathlib import Path
 import random
 import sys
-
 sys.path.append("../")
+
+
+from scripts.uri import compute_uri_subsets_files
 from scripts.io import write_stringlist_to_file
 
 
-def is_test_file(filename: str):
+def is_aishell_test_file(filename: str):
     return filename.startswith('L') or filename.startswith('M') or filename.startswith('S')
-
-def get_subsets(uris: list, subsets: dict):
-    rand = random.Random(SEED)
-    uris_left = rand.sample(uris, len(uris))
-    random.shuffle(uris_left)
-    answer = {}
-    for subsetname in subsets:
-        ratio = subsets[subsetname]
-        element_count = round(len(uris) * ratio)
-        answer[subsetname] = uris_left[:element_count]
-        uris_left = uris_left[element_count:]
-    return answer
 
 
 def main():
     all_uris = [Path(filename).stem for filename in glob.glob(FILES_SOURCE)]
-    all_train_uris = [uri for uri in all_uris if not is_test_file(uri)]
-    all_test_uris = [uri for uri in all_uris if is_test_file(uri)]
+    all_train_uris = [uri for uri in all_uris if not is_aishell_test_file(uri)]
+    all_test_uris = [uri for uri in all_uris if is_aishell_test_file(uri)]
 
-    custom_subsets = get_subsets(all_train_uris, CUSTOM_TRAIN_SUBSETS)
+    custom_subsets = compute_uri_subsets_files(all_train_uris, CUSTOM_TRAIN_SUBSETS)
     for subsetname, subseturis in custom_subsets.items():
         write_stringlist_to_file(Path(RESULT_DIR) / (subsetname+".txt"), subseturis, sort=True)
 
