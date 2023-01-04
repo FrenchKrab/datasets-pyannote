@@ -7,6 +7,29 @@ from .rttm import get_time_data_from_rttm
 
 
 def generate_uems_for_uris(rttm_folder: Union[Text, Path], out_folder: Union[Text, Path], uris: List[Text], audio_path_template:str=None, audio_use: Literal['everything','safeguard','nothing']='safeguard'):
+    """Given a list of URIs and an RTTM folder, generate the corresponding UEM for each URI.
+    Can use audio files for RTTM start/end time sanity check
+
+    Parameters
+    ----------
+    rttm_folder : Union[Text, Path]
+        Folder with RTTM files named {uri}.rttm
+    out_folder : Union[Text, Path]
+        Output folder for .uem files
+    uris : List[Text]
+        List of URIs
+    audio_path_template : str, optional
+        Path where to find the audio files. eg 'wav/{uri}.wav'
+        Don't use audio file to compute UEM if left to None, by default None
+    audio_use : Literal['everything','safeguard','nothing'], optional
+        How to make use of audio files for UEM
+        'everything'=ignore RTTMs and only use audio files, 
+        'safeguard'=prefer rttm but make sure the timestamps are sane, 
+        'nothing'=dont use audio files, 
+        by default 'safeguard'
+    """
+
+    # TODO: add option for how to handle starting time.
     for uri in uris:
         rttm_file = f"{uri}.rttm"
         rttm_path = Path(rttm_folder) / rttm_file

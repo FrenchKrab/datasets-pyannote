@@ -4,7 +4,7 @@ import wave
 import sys
 
 sys.path.append("../")
-from scripts.uems import generate_uems_for_uris
+from scripts.uem import generate_uems_for_uris
 from scripts.io import read_stringlist_from_file
 
 
