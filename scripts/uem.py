@@ -52,3 +52,29 @@ def generate_uems_for_uris(rttm_folder: Union[Text, Path], out_folder: Union[Tex
         file_to_write_path.parent.mkdir(parents=True, exist_ok=True)
         with open(file_to_write_path, 'w') as f:
             f.write(f'{uri} 1 {earliest_time} {latest_time}\n')
+
+
+def get_uem_data(path: Union[str, Path]) -> dict:
+    with open(path, 'r') as f:
+        line = f.readline().strip()
+        line_data = line.split(' ')
+        if len(line_data) != 4:
+            raise Exception(f"Invalid UEM file, contains only {len(line_data)} fields")
+        
+        return {
+            "uri": line_data[0],
+            "track": line_data[1],
+            "time_start": float(line_data[2]),
+            "time_end": float(line_data[3])
+        }
+
+def get_uem_data_uris(uris: List[Text], uem_template: str):
+    # compute file durations / total durations
+    files_duration: dict[str,float] = {}
+    total_time = 0.0
+
+    for uri in uris:
+        uem_data = get_uem_data(eval(f'f"{uem_template}"'))
+        files_duration[uri] = uem_data["time_end"] - uem_data["time_start"]
+        total_time += files_duration[uri]
+    return files_duration, total_time

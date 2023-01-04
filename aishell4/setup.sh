@@ -37,10 +37,13 @@ mv test/TextGrid/* rttm/
 rm -rd test/
 
 
-echo "Generating URI lists ..."
-python generate_uris.py
+echo "Generating URI index ..."
+python generate_uris.py index
 
 echo "Generating UEM files ..."
 python generate_uems.py
+
+echo "Generating URI lists ..."
+python generate_uris.py
 
 echo "Done !"
