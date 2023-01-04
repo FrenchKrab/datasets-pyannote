@@ -1,6 +1,10 @@
 from pathlib import Path
 import random
 import os
+import sys
+
+sys.path.append("../")
+from scripts.io import write_stringlist_to_file
 
 # Change this to configure !
 # Here, the CUSTOM_FILES_SUBSET_MAPPING will split the few.train
@@ -17,7 +21,12 @@ CUSTOM_FILES_SUBSET_MAPPING = {
     "few.val.rttm" : {'test': 1.0},
     "many.val.rttm" : {'test_many': 1.0}
 }
-ALL_FILE_SUBSETS_TO_PROCESS = [OG_FILE_SUBSET_MAPPING, CUSTOM_FILES_SUBSET_MAPPING]
+ALL_FILES_MAPPING = {
+    "few.train.rttm" : {'all':1.0},
+    "few.val.rttm" : {'all': 1.0},
+    "many.val.rttm" : {'all': 1.0}
+}
+ALL_FILE_SUBSETS_TO_PROCESS = [OG_FILE_SUBSET_MAPPING, CUSTOM_FILES_SUBSET_MAPPING, ALL_FILES_MAPPING]
 
 
 OUTDIR = "lists"
@@ -39,7 +48,6 @@ def get_subsets(uris: list, subsets: dict):
 def get_all_subset_uris_in_rttm(file_subset_mapping: dict) -> dict:
     uris = {}
     for file in file_subset_mapping:
-
         uris_in_file = set()
         with open(file, 'r') as f:
             for line in f:
@@ -57,14 +65,6 @@ def get_all_subset_uris_in_rttm(file_subset_mapping: dict) -> dict:
         uris[subset] = list(set(uris[subset]))
     return uris
 
-def write_stringlist_to_file(filepath:str, stringlist:list, sort=False):
-    if sort:
-        stringlist.sort()
-    file_to_write_path = Path(filepath)
-    file_to_write_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(file_to_write_path, 'w') as f:
-        for s in stringlist:
-            f.write(s+"\n")
 
 
 

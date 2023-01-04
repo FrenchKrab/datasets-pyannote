@@ -10,7 +10,7 @@ def split_monolithic(monolithic_path: str, out_path: str):
         for line in f:
             splitted = line.split(' ')
             file_name = splitted[1]
-            with open(os.path.join(OUT_FOLDER, f"{file_name}.rttm"), 'a+') as f2:
+            with open(os.path.join(out_path, f"{file_name}.rttm"), 'a+') as f2:
                 f2.write(line)
 
 
