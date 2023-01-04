@@ -4,41 +4,16 @@ RTTM_FOLDER = 'rttm'
 
 import glob
 from pathlib import Path
+import sys
 
-def get_time_data(rttm_file: str) -> float:
-    with open(rttm_file, 'r') as f:
-        latest_time = 0.0
-        for line in f:
-            splitted = line.split(' ')
-            if (len(splitted) < 4):
-                continue
-            time_begin = float(splitted[3])
-            time_end = float(splitted[4])
-            latest_time = max(latest_time, time_begin + time_end)
-    return latest_time
-
-def generate_uems_for_uris(uris: list, rttm_path: str, out_path: str):
-    for uri in uris:
-        rttm_file = f"{uri}.rttm"
-        earliest_time = 0.0
-        latest_time = get_time_data(Path(rttm_path) / rttm_file)
-
-        file_to_write_path = Path(out_path)/f'{uri}.uem'
-        file_to_write_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(file_to_write_path, 'w') as f:
-            f.write(f'{uri} 1 {earliest_time} {latest_time}\n')
-
-def read_uris(urifile_path: str):
-    uris = []
-    with open(urifile_path, 'r') as f:
-        for l in f:
-            uris.append(l.replace('\n',''))
-    return uris
+sys.path.append("../")
+from scripts.io import read_stringlist_from_file
+from scripts.uem import generate_uems_for_uris
 
 
 def main():
-    subset_uris = read_uris(ALL_URIS_FILE)
-    generate_uems_for_uris(subset_uris, Path(RTTM_FOLDER), UEM_OUT)
+    all_uris = read_stringlist_from_file(ALL_URIS_FILE)
+    generate_uems_for_uris(RTTM_FOLDER, UEM_OUT, all_uris)
 
 
 if __name__ == "__main__":

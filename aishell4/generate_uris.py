@@ -11,6 +11,10 @@ SEED=42
 import glob
 from pathlib import Path
 import random
+import sys
+
+sys.path.append("../")
+from scripts.io import write_stringlist_to_file
 
 
 def is_test_file(filename: str):
@@ -28,24 +32,9 @@ def get_subsets(uris: list, subsets: dict):
         uris_left = uris_left[element_count:]
     return answer
 
-def get_filenames(pattern: str):
-    all_uris = []
-    for filename in glob.glob(pattern):
-        uri = Path(filename).stem
-        all_uris.append(uri)
-    return all_uris
-
-def write_stringlist_to_file(filepath:str, stringlist:list, sort=False):
-    if sort:
-        stringlist.sort()
-    file_to_write_path = Path(filepath)
-    file_to_write_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(file_to_write_path, 'w') as f:
-        for s in stringlist:
-            f.write(s+"\n")
 
 def main():
-    all_uris = get_filenames(FILES_SOURCE)
+    all_uris = [Path(filename).stem for filename in glob.glob(FILES_SOURCE)]
     all_train_uris = [uri for uri in all_uris if not is_test_file(uri)]
     all_test_uris = [uri for uri in all_uris if is_test_file(uri)]
 
