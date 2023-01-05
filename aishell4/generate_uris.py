@@ -1,10 +1,12 @@
 # Generates URIs from filenames
 FILES_SOURCE="wav/*.flac"
 RESULT_DIR = "lists"
+UEM_TEMPLATE = "uems/{uri}.uem"
 
 SEED=42
 
 import glob
+import math
 from pathlib import Path
 import random
 import sys
@@ -21,19 +23,17 @@ def is_aishell_test_file(filename: str):
 def your_subset_creation_logic():
     # Original subsets
     all_uris = [Path(filename).stem for filename in glob.glob(FILES_SOURCE)]
-    all_train_uris = [uri for uri in all_uris if not is_aishell_test_file(uri)]
-    all_test_uris = [uri for uri in all_uris if is_aishell_test_file(uri)]
+    all_train_uris = [uri for uri in all_uris if not is_aishell_test_file(uri)] # 191 files, 104h46m
+    all_test_uris = [uri for uri in all_uris if is_aishell_test_file(uri)]  # 20 files, 12h34m
 
     write_stringlist_to_file(Path(RESULT_DIR) / "train.txt", all_train_uris)
     write_stringlist_to_file(Path(RESULT_DIR) / "test.txt", all_test_uris)
 
-    # Custom subsets
-    subsets_file_ratio = {'train_file85per':0.85, 'fr_file15per':0.15}
-    subsets_time_ratio = {'train_time85per':0.85, 'dev_time15per':0.15}
+    # Custom subsets !
+    subsets_time_ratio = {'custom_dev':60*60*12.0, 'custom_train':math.inf} # aim for about the same size as test
         
     computed_subsets_uri = [
-        compute_uri_subsets_files(all_train_uris, subsets_file_ratio, mode="ratio"),
-        compute_uri_subsets_time(all_train_uris, subsets_time_ratio, mode="ratio")
+        compute_uri_subsets_time(all_train_uris, UEM_TEMPLATE, subsets_time_ratio, mode="absolute")
     ]
 
     for computed_subsets in computed_subsets_uri:

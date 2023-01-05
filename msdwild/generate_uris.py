@@ -11,24 +11,12 @@ sys.path.append("../")
 from scripts.io import write_stringlist_to_file
 from scripts.uri import compute_uri_subsets_files, compute_uri_subsets_time
 
-# Change this to configure !
-# Here, the CUSTOM_FILES_SUBSET_MAPPING will split the few.train
-# subset into a 'train' subset and a 'dev' subset, which are respectively
-# 80% and 20% the size of the original subset.
-# If you add a mapping, dont forget to append it to ALL_FILE_SUBSETS_TO_PROCESS
-OG_FILE_SUBSET_MAPPING = {
-    "few.train.rttm" : {'few_train':1.0},
-    "few.val.rttm" : {'few_val': 1.0},
-    "many.val.rttm" : {'many_val': 1.0},
-}
-CUSTOM_FILES_SUBSET_MAPPING = {
-    "few.train.rttm" : {'custom1_dev':60*60*6, 'custom1_train':+math.inf},  # put 6h into 'dev', the rest into 'train'
-}
+
 
 ALL_FILES_MAPPING = {
-    "few.train.rttm" : {'all':1.0},
-    "few.val.rttm" : {'all': 1.0},
-    "many.val.rttm" : {'all': 1.0}
+    "few.train.rttm" : {'all':1.0},     # 2476 files, 65h54
+    "few.val.rttm" : {'all': 1.0},      # 490 files, 9h49
+    "many.val.rttm" : {'all': 1.0},     # 177 files, 4h04
 }
 
 
@@ -48,9 +36,9 @@ def get_all_subset_uris_in_rttm(file_subset_mapping: dict, unit: Literal['time',
                 uri = splitted[1]
                 uris_in_file.add(uri)
         if unit == 'file':
-            subset_uris = compute_uri_subsets_files(list(uris_in_file), file_subset_mapping[file], mode=mode)
+            subset_uris = compute_uri_subsets_files(list(uris_in_file), file_subset_mapping[file], mode=mode, seed=SEED)
         elif unit == 'time':
-            subset_uris = compute_uri_subsets_time(list(uris_in_file), UEM_TEMPLATE, file_subset_mapping[file], mode=mode)
+            subset_uris = compute_uri_subsets_time(list(uris_in_file), UEM_TEMPLATE, file_subset_mapping[file], mode=mode, seed=SEED)
         else:
             raise ValueError(f"unknown unit : {unit}")
 
@@ -68,6 +56,17 @@ def get_all_subset_uris_in_rttm(file_subset_mapping: dict, unit: Literal['time',
 
 
 def your_subset_creation_logic():
+    # Change this to configure !
+    OG_FILE_SUBSET_MAPPING = {
+        "few.train.rttm" : {'few_train':1.0},
+        "few.val.rttm" : {'few_val': 1.0},
+        "many.val.rttm" : {'many_val': 1.0},
+    }
+    CUSTOM_FILES_SUBSET_MAPPING = {
+        "few.train.rttm" : {'custom1_dev':60*60*6, 'custom1_train':+math.inf},  # put 6h into 'dev', the rest into 'train'
+    }
+
+
 
     all_subsets = [
         get_all_subset_uris_in_rttm(OG_FILE_SUBSET_MAPPING, 'file', 'ratio'),
