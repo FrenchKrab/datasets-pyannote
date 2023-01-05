@@ -30,7 +30,7 @@ def your_subset_creation_logic():
     write_stringlist_to_file(Path(RESULT_DIR) / "test.txt", all_test_uris)
 
     # Custom subsets !
-    subsets_time_ratio = {'custom_dev':60*60*12.0, 'custom_train':math.inf} # aim for about the same size as test
+    subsets_time_ratio = {'custom_dev':60*60*12.0, 'custom_train':math.inf} # aim for about the same size as test : 12h
         
     computed_subsets_uri = [
         compute_uri_subsets_time(all_train_uris, UEM_TEMPLATE, subsets_time_ratio, mode="absolute")

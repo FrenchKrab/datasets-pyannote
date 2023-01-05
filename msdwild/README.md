@@ -2,12 +2,17 @@
 
 This repository automatically downloads the MSDWILD dataset and set it up to be used with [pyannote-database](https://github.com/pyannote/pyannote-database).
 
+
+It will generate two subsets from the original `few.train` set : `custom1_train` and `custom1_dev`, as the original dataset only has training and test data.
+Defaults are 6h for `custom1_dev`, and what's left (~60h) for `custom1_train`.
+
+Out-of-the-box protocol for pyannote.audio training is `MSDWILD.SpeakerDiarization.CustomFew`.
+
 ## Instructions
 
 Clone this repository, download the dataset zip at https://github.com/X-LANCE/MSDWILD#wavs and put it under the `msdwild` folder.
 Then, run `setup.sh` in the `msdwild` directory to download/extract/generate the files (wav, rttm, uem, uris).
 
-If you want to edit how custom subsets are generated, head to [generate_uris.py](generate_uris.py) where you can edit them through constants at the beginning of the file. If you add/remove subsets, don't forget to edit database.yml accordingly.
 
 ## Original sets info
 
