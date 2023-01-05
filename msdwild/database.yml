@@ -1,0 +1,36 @@
+Databases:
+  MSDWILD: wav/{uri}.wav
+
+Protocols:
+  MSDWILD:
+    SpeakerDiarization:
+      # Only use "few" data (low speaker count)
+      CustomFew:
+        train:
+          uri: lists/custom1_train.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+        development:
+          uri: lists/custom1_dev.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+        test:
+          uri: lists/few_train.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+      # uses the "many" subset as test
+      OriginalMany:
+        test:
+          uri: lists/many_val.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+      # original subsets, lacks a development one.
+      OriginalFew:
+        train:
+          uri: lists/few_train.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+        test:
+          uri: lists/few_val.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem

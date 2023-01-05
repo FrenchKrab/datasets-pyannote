@@ -1,6 +1,1 @@
-__pycache__/
-wav/
-rttm/
-uems/
-lists/
-*.tar.gz
+**/*.pyc

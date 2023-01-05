@@ -4,13 +4,22 @@ Databases:
 Protocols:
   AISHELL4:
     SpeakerDiarization:
-      only_words:
+      Custom:
         train:
-          uri: lists/train.txt
+          uri: lists/custom_train.txt
           annotation: rttm/{uri}.rttm
           annotated: uems/{uri}.uem
         development:
-          uri: lists/dev.txt
+          uri: lists/custom_dev.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+        test:
+          uri: lists/test.txt
+          annotation: rttm/{uri}.rttm
+          annotated: uems/{uri}.uem
+      Original:
+        train:
+          uri: lists/train.txt
           annotation: rttm/{uri}.rttm
           annotated: uems/{uri}.uem
         test:

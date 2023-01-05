@@ -2,10 +2,10 @@
 
 
 echo "Downloading ..."
-wget -nc "https://www.openslr.org/resources/111/train_L.tar.gz"
-wget -nc "https://www.openslr.org/resources/111/train_M.tar.gz"
-wget -nc "https://www.openslr.org/resources/111/train_S.tar.gz"
-wget -nc "https://www.openslr.org/resources/111/test.tar.gz"
+wget c "https://www.openslr.org/resources/111/train_L.tar.gz"
+wget -c "https://www.openslr.org/resources/111/train_M.tar.gz"
+wget -c "https://www.openslr.org/resources/111/train_S.tar.gz"
+wget -c "https://www.openslr.org/resources/111/test.tar.gz"
 
 echo "Extracting train_L"
 tar -xf train_L.tar.gz
@@ -37,10 +37,13 @@ mv test/TextGrid/* rttm/
 rm -rd test/
 
 
-echo "Generating URI lists ..."
-python generate_uris.py
+echo "Generating URI index ..."
+python generate_uris.py index
 
 echo "Generating UEM files ..."
 python generate_uems.py
+
+echo "Generating URI lists ..."
+python generate_uris.py
 
 echo "Done !"
