@@ -1,0 +1,7 @@
+arabic-speech-corpus.zip
+*.txt
+
+lab/
+textgrid/
+wav/
+test_set/
