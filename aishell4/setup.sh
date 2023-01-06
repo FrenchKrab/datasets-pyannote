@@ -2,7 +2,7 @@
 
 
 echo "Downloading ..."
-wget c "https://www.openslr.org/resources/111/train_L.tar.gz"
+wget -c "https://www.openslr.org/resources/111/train_L.tar.gz"
 wget -c "https://www.openslr.org/resources/111/train_M.tar.gz"
 wget -c "https://www.openslr.org/resources/111/train_S.tar.gz"
 wget -c "https://www.openslr.org/resources/111/test.tar.gz"

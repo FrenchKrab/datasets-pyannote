@@ -1,5 +1,7 @@
-# echo "Extracting msdwild_wavs.zip"
-# unzip msdwild_wavs.zip -d .
+#!/bin/bash
+
+echo "Extracting msdwild_wavs.zip"
+unzip msdwild_wavs.zip -d .
 
 echo "Downloading RTTMs"
 wget -nc "https://github.com/X-LANCE/MSDWILD/raw/master/rttms/all.rttm"
