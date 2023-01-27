@@ -1,0 +1,79 @@
+Databases:
+  VoxCeleb:
+    - VoxCeleb1/dev/wav/{uri}.wav
+    - VoxCeleb1/test/wav/{uri}.wav
+    - VoxCeleb2/dev/aac/{uri}.wav
+    - VoxCeleb2/test/aac/{uri}.wav
+
+Protocols:
+  VoxCeleb:
+    SpeakerDiarization:
+      # original VoxCeleb1 split (no train)
+      VoxCeleb1:
+        development:
+          uri: vox1.dev.lst
+          annotation: vox1.dev.rttm
+          annotated: vox1.dev.uem
+          duration: vox1.dev.duration.map
+        test:
+          uri: vox1.tst.lst
+          annotation: vox1.tst.rttm
+          annotated: vox1.tst.uem
+          duration: vox1.tst.duration.map
+      # original VoxCeleb2 split (no train)
+      VoxCeleb2:
+        development:
+          uri: vox2.dev.lst
+          annotation: vox2.dev.rttm
+          annotated: vox2.dev.uem
+          duration: vox2.dev.duration.map
+        test:
+          uri: vox2.tst.lst
+          annotation: vox2.tst.rttm
+          annotated: vox2.tst.uem
+          duration: vox2.tst.duration.map
+
+    SpeakerVerification:
+      # trn: all VoxCeleb1 development speakers but those whose name starts by U, V, or W.
+      # dev: VoxCeleb1 development speakers whose name starts by U, V, or W.
+      # tst: original VoxCeleb1 test set
+      VoxCeleb1:
+        train:
+          uri: vox1.dev_a.lst
+          annotation: vox1.dev.rttm
+          annotated: vox1.dev.uem
+          duration: vox1.dev.duration.map
+        development:
+          uri: vox1.dev_b.lst
+          annotation: vox1.dev.rttm
+          annotated: vox1.dev.uem
+          duration: vox1.dev.duration.map
+          trial: vox1.dev_b.trial.txt
+        test:
+          uri: vox1.tst.lst
+          annotation: vox1.tst.rttm
+          annotated: vox1.tst.uem
+          duration: vox1.tst.duration.map
+          trial: vox1.tst.trial.txt
+
+      VoxCeleb:
+        # trn: all VoxCeleb2 development speakers + all VoxCeleb1 speakers but those whose name starts by U, V, or W
+        # dev: VoxCeleb1 development speakers whose name starts by U, V, or W.
+        # tst: original VoxCeleb1 test set
+        train:
+          uri: vox.trn.lst
+          annotation: vox.trn.rttm
+          annotated: vox.trn.uem
+          duration: vox.trn.duration.map
+        development:
+          uri: vox1.dev_b.lst
+          annotation: vox1.dev.rttm
+          annotated: vox1.dev.uem
+          duration: vox1.dev.duration.map
+          trial: vox1.dev_b.trial.txt
+        test:
+          uri: vox1.tst.lst
+          annotation: vox1.tst.rttm
+          annotated: vox1.tst.uem
+          duration: vox1.tst.duration.map
+          trial: vox1.tst.trial.txt
