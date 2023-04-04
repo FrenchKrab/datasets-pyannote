@@ -13,7 +13,7 @@ Protocols:
           annotated: train.uem
           annotation: consolidated.rttm
         development:
-          uri: development.uris.lst
+          uri: validation.uris.lst
           annotated: development.uem
           annotation: consolidated.rttm
         test:
