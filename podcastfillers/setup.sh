@@ -29,11 +29,10 @@ for SUBSET in test train validation; do
 
     # FIXME: this is probably not the right relative path to PodcastFillers
     for file in `find $PWD/PodcastFillers/audio/episode_wav/$SUBSET -name "*wav" -type f`; do
-
-        # build "uri" by removing extension and replacing spaces with underscores        
+ 
+        # build "uri" by removing diacritics, removing extension, and replacing spaces with underscores
         base=`basename "$file"`
-        stem=`echo $base | sed 's/\.[^.]*$//'`
-        URI=`echo $stem | tr ' ' '_'`
+        URI=`echo $base | iconv -f utf8 -t ascii//TRANSLIT | sed 's/\.[^.]*$//' | tr ' ' '_'`
 
         # add "uri" to list of uris
         echo $URI >> $PWD/$SUBSET.uris.lst 
