@@ -5,10 +5,12 @@ This repository aims to centralize scripts that prepare datasets to be used with
 Currently available : 
 - [AISHELL4](aishell4)
 - [MSDWild](msdwild)
+- [PodcastFillers](podcastfillers)
 
 To setup each dataset, refer to the `README.md` contained in their respective folder.
 
-Each dataset comes with its predefined `database.yml`, containing pyannote-database protocol(s) with already defined train+dev+test sets for out-of-the-box *speaker diarization* usage.
+Each dataset comes with its predefined `database.yml`, containing pyannote-database protocol(s) with already defined train+dev+test sets for out-of-the-box *speaker diarization* or *segmentation* usage.
+
 How these subsets are defined is entirely configurable.
 
 ## FAQ

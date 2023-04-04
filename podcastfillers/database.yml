@@ -1,0 +1,22 @@
+Databases:
+  PodcastFillers: symlinks/{uri}.wav
+
+Protocols:
+  PodcastFillers:
+    Segmentation:
+      Fillers:
+        classes:
+          - Uh
+          - Um
+        train:
+          uri: train.uris.lst
+          annotated: train.uem
+          annotation: consolidated.rttm
+        development:
+          uri: validation.uris.lst
+          annotated: development.uem
+          annotation: consolidated.rttm
+        test:
+          uri: test.uris.lst
+          annotated: test.uem
+          annotation: consolidated.rttm
