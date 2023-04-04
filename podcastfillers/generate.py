@@ -3,11 +3,9 @@ import contextlib
 import sys
 import csv
 
-src_dir = sys.argv[1]
-tgt_dir = sys.argv[2]
+tgt_dir = sys.argv[1]
 
 SUBSET = {"train": "train", "development": "validation", "test": "test"}
-
 
 for subset, slug in SUBSET.items():
 
@@ -23,7 +21,7 @@ for subset, slug in SUBSET.items():
                 duration = frames / float(rate)
                 f.write(f"{uri} 1 0.000 {duration:.3f}\n")
 
-with open(f'{src_dir}/PodcastFillers.csv', 'r') as csvfile, open(f'{tgt_dir}/full.rttm', 'w') as rttm_full, open(f'{tgt_dir}/consolidated.rttm', 'w') as rttm_consolidated:
+with open(f'{tgt_dir}/PodcastFillers.csv', 'r') as csvfile, open(f'{tgt_dir}/full.rttm', 'w') as rttm_full, open(f'{tgt_dir}/consolidated.rttm', 'w') as rttm_consolidated:
     csvreader = csv.reader(csvfile, delimiter=',')
     for r, row in enumerate(csvreader):
         
