@@ -77,3 +77,26 @@ Protocols:
           annotated: vox1.tst.uem
           duration: vox1.tst.duration.map
           trial: vox1.tst.trial.txt
+
+      VoxCelebMini:
+        # trn: First 100 speaker of VoxCeleb protocol
+        # dev: same as VoxCeleb.SpeakerVerification.VoxCeleb protocol
+        # tst: same as VoxCeleb.SpeakerVerification.VoxCeleb protocol
+        train:
+          uri: mini_vox/mini_vox.trn.lst
+          annotation: mini_vox/mini_vox.trn.rttm
+          annotated: mini_vox/mini_vox.trn.uem
+          duration: mini_vox/mini_vox.trn.duration.map
+        development:
+          uri: vox1.dev_b.lst
+          annotation: vox1.dev.rttm
+          annotated: vox1.dev.uem
+          duration: vox1.dev.duration.map
+          trial: vox1.dev_b.trial.txt
+        test:
+          uri: vox1.tst.lst
+          annotation: vox1.tst.rttm
+          annotated: vox1.tst.uem
+          duration: vox1.tst.duration.map
+          trial: vox1.tst.trial.txt
+
