@@ -1,9 +1,9 @@
 Databases:
   VoxCeleb:
-    - /gpfsdswork/dataset/VoxCeleb1/dev/wav/{uri}.wav
-    - /gpfsdswork/dataset/VoxCeleb1/test/wav/{uri}.wav
-    - /gpfsdswork/dataset/VoxCeleb2/dev/aac/{uri}.wav
-    - /gpfsdswork/dataset/VoxCeleb2/test/aac/{uri}.wav
+    - VoxCeleb1/dev/wav/{uri}.wav
+    - VoxCeleb1/test/wav/{uri}.wav
+    - VoxCeleb2/dev/aac/{uri}.wav
+    - VoxCeleb2/test/aac/{uri}.wav
 
 Protocols:
   VoxCeleb:
