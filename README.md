@@ -5,6 +5,7 @@ This repository aims to centralize scripts that prepare datasets to be used with
 Currently available : 
 - [AISHELL4](aishell4)
 - [MSDWild](msdwild)
+- [VoxCeleb](voxceleb)
 
 To setup each dataset, refer to the `README.md` contained in their respective folder.
 
