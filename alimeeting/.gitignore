@@ -1,0 +1,6 @@
+__pycache__/
+alimeeting_sdm/
+*.rttm
+*.tar.gz
+*.uem
+*.uri.lst

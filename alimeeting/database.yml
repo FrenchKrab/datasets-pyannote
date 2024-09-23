@@ -1,0 +1,21 @@
+Databases:
+  Train: alimeeting_sdm/Train/{uri}.wav
+  Test: alimeeting_sdm/Test/{uri}.wav
+  Eval: alimeeting_sdm/Eval/{uri}.wav
+
+Protocols:
+  AliMeeting:
+    SpeakerDiarization:
+      Original:
+        train:
+          uri: train.uri.lst
+          annotation: train.rttm
+          annotated: train.uem
+        development:
+          uri: development.uri.lst
+          annotation: development.rttm
+          annotated: development.uem
+        test:
+          uri: test.uri.lst
+          annotation: test.rttm
+          annotated: test.uem
