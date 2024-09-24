@@ -1,0 +1,3 @@
+lhotse
+pyannote.audio
+tqdm
