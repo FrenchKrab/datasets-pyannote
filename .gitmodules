@@ -1,0 +1,3 @@
+[submodule "ami/AMI-diarization-setup"]
+	path = ami/AMI-diarization-setup
+	url = git@github.com:pyannote/AMI-diarization-setup.git

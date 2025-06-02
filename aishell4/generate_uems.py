@@ -1,14 +1,12 @@
-UEM_OUT="uems/"
+UEM_OUT = "uems/"
 ALL_URIS_FILE = "lists/all.txt"
-RTTM_FOLDER = 'rttm'
+RTTM_FOLDER = "rttm"
 
-import glob
-from pathlib import Path
 import sys
 
 sys.path.append("../")
-from scripts.io import read_stringlist_from_file
-from scripts.uem import generate_uems_for_uris
+from datasets_pyannote.io import read_stringlist_from_file
+from datasets_pyannote.uem import generate_uems_for_uris
 
 
 def main():

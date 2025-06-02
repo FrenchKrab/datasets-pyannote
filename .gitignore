@@ -1,1 +1,9 @@
 **/*.pyc
+
+**/*.wav
+**/*.flac
+**/*.rttm
+**/*.uem
+**/*.TextGrid
+**/*.lab
+**/*.tar.gz

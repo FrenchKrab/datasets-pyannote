@@ -1,22 +1,21 @@
 import contextlib
-from typing import Literal
-import wave
 import sys
+import wave
+from typing import Literal
 
 sys.path.append("../")
-from scripts.uem import generate_uems_for_uris
 from scripts.io import read_stringlist_from_file
+from scripts.uem import generate_uems_for_uris
 
-
-UEM_OUT="uems/"
+UEM_OUT = "uems/"
 URI_ALL = "lists/all.txt"
-AUDIO_TEMPLATE="wav/{uri}.wav"
-RTTM_FOLDER = 'rttm'
+AUDIO_TEMPLATE = "wav/{uri}.wav"
+RTTM_FOLDER = "rttm"
 
 # none: dont use wavs
 # safeguard: use wav duration to clip rttm if an annotation exceed file duration
 # everything: use wave duration as uem
-WAV_USE: Literal['none','safeguard','everything'] = 'safeguard'
+WAV_USE: Literal["none", "safeguard", "everything"] = "safeguard"
 
 
 import glob

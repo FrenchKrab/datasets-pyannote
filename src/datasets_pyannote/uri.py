@@ -1,12 +1,13 @@
-
-from operator import sub
 import random
+from operator import sub
 from typing import List, Literal, Text
 
-from scripts.uem import get_uem_data_uris
+from datasets_pyannote.uem import get_uem_data_uris
 
 
-def compute_uri_subsets_files(uris: list, subsets: dict, mode: Literal['ratio','absolute'], seed=42) -> dict:
+def compute_uri_subsets_files(
+    uris: list, subsets: dict, mode: Literal["ratio", "absolute"], seed=42, verbose: bool = False
+) -> dict:
     """Splits a list of URI into multiple subsets, following ratios for the number of files in each subset.
 
     Parameters
@@ -30,20 +31,27 @@ def compute_uri_subsets_files(uris: list, subsets: dict, mode: Literal['ratio','
     random.shuffle(uris_left)
     answer = {}
     for subsetname in subsets:
-        if mode == 'ratio':
+        if mode == "ratio":
             ratio = subsets[subsetname]
             element_count = round(len(uris) * ratio)
-        elif mode == 'absolute':
+        elif mode == "absolute":
             element_count = subsets[subsetname]
         else:
             raise ValueError(f"Invalid mode : {mode}")
-
 
         answer[subsetname] = uris_left[:element_count]
         uris_left = uris_left[element_count:]
     return answer
 
-def compute_uri_subsets_time(uris: List[Text], uem_template: str, subsets: dict[str,float], mode: Literal['ratio','absolute'], seed=42):
+
+def compute_uri_subsets_time(
+    uris: List[Text],
+    uem_template: str,
+    subsets: dict[str, float],
+    mode: Literal["ratio", "absolute"],
+    seed=42,
+    verbose: bool = False,
+) -> dict[str, list[str]]:
     """Divides a list of URIs into disjoint subsets of a certain duration (either relative to the total URIs duration, or absolute time).
 
     Parameters
@@ -76,21 +84,22 @@ def compute_uri_subsets_time(uris: List[Text], uem_template: str, subsets: dict[
     """
 
     files_duration, total_time = get_uem_data_uris(uris, uem_template)
-    
+
     # compute subsets
     rand = random.Random(seed)
     uris_left = rand.sample(uris, len(uris))
     random.shuffle(uris_left)
-    answer = {}
+    answer: dict[str, list[str]] = {}
 
     for subsetname in subsets:
-        if mode == 'ratio':
+        if mode == "ratio":
             ratio = subsets[subsetname]
             seconds_left_to_fill = ratio * total_time
-        elif mode == 'absolute':
+        elif mode == "absolute":
             seconds_left_to_fill = subsets[subsetname]
         else:
             raise ValueError(f"Invalid mode : {mode}")
+        og_seconds_left_to_fill = seconds_left_to_fill
         subset_content = []
 
         while len(uris_left) > 0 and seconds_left_to_fill > 0:
@@ -101,5 +110,9 @@ def compute_uri_subsets_time(uris: List[Text], uem_template: str, subsets: dict[
 
         if len(subset_content) == 0:
             raise Exception(f"There's not enough data left for the {subsetname} subset !")
+        if verbose:
+            print(
+                f"Subset {subsetname} has {len(subset_content)} files and {(og_seconds_left_to_fill - seconds_left_to_fill)/3600:.4f} hours"
+            )
         answer[subsetname] = subset_content
     return answer
