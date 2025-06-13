@@ -19,7 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11"
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dynamic = ["version"]
 dependencies = [
     "pyannote-audio >= 3.1",
@@ -33,6 +33,7 @@ rttm-to-uem = "datasets_pyannote.cli.rttm_to_uem:main"
 textgrid-to-rttm = "datasets_pyannote.cli.textgrid_to_rttm:main"
 uri-subsets = "datasets_pyannote.cli.uri_subsets:main"
 variant-matching = "datasets_pyannote.cli.variant_matching:main"
+pyandb-stats = "datasets_pyannote.cli.pyandb_stats:main"
 
 
 [project.urls]
