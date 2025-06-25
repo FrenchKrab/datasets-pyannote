@@ -34,6 +34,7 @@ textgrid-to-rttm = "datasets_pyannote.cli.textgrid_to_rttm:main"
 uri-subsets = "datasets_pyannote.cli.uri_subsets:main"
 variant-matching = "datasets_pyannote.cli.variant_matching:main"
 pyandb-stats = "datasets_pyannote.cli.pyandb_stats:main"
+pyandb-stats-sw = "datasets_pyannote.cli.pyandb_stats_sw:main"
 
 
 [project.urls]

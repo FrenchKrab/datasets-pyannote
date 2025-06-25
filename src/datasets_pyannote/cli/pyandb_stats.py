@@ -13,26 +13,37 @@ def compute_distrib_stats(values: list[float], prefix: str = "") -> dict:
         prefix + "max": np.max(values),
         prefix + "mean": np.mean(values),
         prefix + "median": np.median(values),
+        prefix + "sum": np.sum(values),
     }
 
+def compute_discrete_histogram(values: list[float], prefix: str = "") -> dict:
+    d = {}
+    unique_values = np.unique(values)
+    for value in unique_values:
+        d[prefix + str(value)] = np.sum(values == value) / len(values) * 100
+    return d
 
-def accumulate_stats_on_files(files: list[ProtocolFile], dataset_name: str = "") -> dict:
+
+def accumulate_stats_on_files(files: list[ProtocolFile], dataset_name: str = "", ann_sr: float = 50.0) -> dict:
     stats = {
         "num_files": len(files),
         "speaker_count": [],
         "file_duration": [],
         "speech_duration": [],
         "ov_duration": [],
+        "fw_speaker_count": [],
     }
 
     for file in tqdm.tqdm(files, desc=f"Computing stats on {dataset_name}"):
         uem: Timeline = file["annotated"]
         ann: Annotation = file["annotation"]
+        ann_arr = ann.discretize(resolution=1 / ann_sr).data
 
         stats["speaker_count"].append(len(ann.labels()))
         stats["file_duration"].append(uem.duration())
         stats["speech_duration"].append(ann.get_timeline().support().duration())
         stats["ov_duration"].append(ann.get_overlap().support().duration())
+        stats["fw_speaker_count"] += np.sum(ann_arr, axis=1).tolist()
 
     return stats
 
@@ -43,6 +54,7 @@ def main():
     parser.add_argument(
         "--subsets", type=str, nargs="+", choices=["train", "development", "test"], help="Which subsets to include"
     )
+    parser.add_argument("--ann-sr", type=float, help="Sampling rate of annotations to compute framewise statistics.", default=50.0)
     parser.add_argument("--database_yml", type=str, nargs="+", help="Path to database.yml files to load")
     parser.add_argument("--output", type=str, help="Output file, leave empty to print to stdout", default=None)
     args = parser.parse_args()
@@ -78,6 +90,9 @@ def main():
 
         ov_ratio = np.array(acc["ov_duration"]) / np.array(acc["file_duration"])
         this_stats.update(compute_distrib_stats(ov_ratio * 100, "ov_percent."))
+
+        this_stats.update(compute_discrete_histogram(acc["fw_speaker_count"], "fw_speaker_count.d."))
+        this_stats.update(compute_distrib_stats(acc["fw_speaker_count"], "fw_speaker_count."))
 
         stats[(protocolname, subsetname)] = this_stats
 
