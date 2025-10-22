@@ -14,17 +14,18 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11"
 ]
 requires-python = ">=3.11"
 dynamic = ["version"]
 dependencies = [
-    "pyannote-audio >= 3.1",
+    "pyannote-database",
     "tqdm",
     "textgrid",
+    "lhotse",
+    # debug
+    "jupyter",
+    "notebook"
 ]
 
 [project.scripts]
@@ -86,7 +87,7 @@ venv = "env37"
 reportMissingImports = true
 reportMissingTypeStubs = false
 
-pythonVersion = "3.7"
+pythonVersion = "3.11"
 pythonPlatform = "Linux"
 
 executionEnvironments = [

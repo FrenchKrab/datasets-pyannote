@@ -1,6 +1,6 @@
 import random
 from operator import sub
-from typing import List, Literal, Text
+from typing import Literal
 
 from datasets_pyannote.uem import get_uem_data_uris
 
@@ -45,7 +45,7 @@ def compute_uri_subsets_files(
 
 
 def compute_uri_subsets_time(
-    uris: List[Text],
+    uris: list[str],
     uem_template: str,
     subsets: dict[str, float],
     mode: Literal["ratio", "absolute"],
@@ -56,7 +56,7 @@ def compute_uri_subsets_time(
 
     Parameters
     ----------
-    uris : List[Text]
+    uris : list[str]
         List of URIs to divide into subsets
     uem_template : str
         Template where to find uem files. eg 'uems/{uri}.uem'

@@ -1,0 +1,21 @@
+aishell4:
+  AISHELL4_CH0:
+    audio: 0
+
+    splits:
+      traindev_dur_per:
+        method: duration_percent
+        source: [train_L, train_M, train_S]
+        split:
+          development: 0.1
+          train: -1
+
+    protocols:
+      SpeakerDiarization.Default:
+        train: [train_S, train_M, train_L]
+        test: [test]
+
+      SpeakerDiarization.Custom:
+        train: traindev_dur_per.train
+        development: traindev_dur_per.development
+        test: 'test'

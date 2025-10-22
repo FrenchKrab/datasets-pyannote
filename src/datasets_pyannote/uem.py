@@ -1,4 +1,4 @@
-from logging import warn
+from logging import warning
 from pathlib import Path
 from typing import List, Literal, Optional, Text, Union
 
@@ -10,10 +10,10 @@ from .rttm import get_time_data_from_rttm
 
 
 def generate_uems_for_uris(
-    rttm_folder: Union[Text, Path],
-    out_folder: Union[Text, Path],
-    uris: List[Text],
-    audio_path_template: str = None,
+    rttm_folder: str | Path,
+    out_folder: str | Path,
+    uris: list[str],
+    audio_path_template: str | None = None,
     audio_use: Literal["everything", "safeguard", "nothing"] = "safeguard",
 ):
     """Given a list of URIs and an RTTM folder, generate the corresponding UEM for each URI.
@@ -21,11 +21,11 @@ def generate_uems_for_uris(
 
     Parameters
     ----------
-    rttm_folder : Union[Text, Path]
+    rttm_folder : str | Path
         Folder with RTTM files named {uri}.rttm
-    out_folder : Union[Text, Path]
+    out_folder : str | Path
         Output folder for .uem files
-    uris : List[Text]
+    uris : list[str]
         List of URIs
     audio_path_template : str, optional
         Path where to find the audio files. eg 'wav/{uri}.wav'
@@ -135,7 +135,7 @@ def generate_uems_for_uris_v2(
                 elif end_strategy == "rttm_safe":
                     latest_time = min(latest_time, wav_duration)
             else:
-                warn(f"Audio file not found for {uri}, falling back on RTTM for UEM end time")
+                warning(f"Audio file not found for {uri}, falling back on RTTM for UEM end time")
 
         out_path = str(out_path)
         if "{uri}" in out_path:

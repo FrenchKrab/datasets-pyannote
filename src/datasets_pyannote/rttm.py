@@ -4,7 +4,7 @@ import textgrid
 from pyannote.core import Annotation, Segment, Timeline
 
 
-def get_time_data_from_rttm(rttm_file: str) -> dict:
+def get_time_data_from_rttm(rttm_file: str | Path) -> dict:
     data = {}
     with open(rttm_file, "r") as f:
         data["latest_time"] = 0.0
